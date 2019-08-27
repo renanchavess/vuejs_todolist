@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>VueJs</title>
+</head>
+<body>
+
+    <div id="app">
+        <input type="text" name="descricao" id="descricao" v-model="descricao">
+        <button type="button" v-on:click="adicionar">Adicionar</button>
+        <br>
+        Texto input: {{descricao}}
+        <hr>
+        <table v-for="(item, index) in lista">
+            <tr>
+                <td>{{index}}</td>
+                <td>{{item}}</td>
+                <td><button type="button" v-on:click="remover(index)">X</button></td>
+            </tr>
+        </table>
+        
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                lista: [],
+                descricao: ''
+            },
+            methods: {
+                adicionar(){
+
+                    if(this.descricao != '')
+                        this.lista.push(this.descricao);
+                    else
+                        alert("Descricao está vazia");
+
+                    this.descricao = '';
+                },
+                remover(index){
+                    this.lista.splice(index, 1);
+
+                    if(this.lista.length === 0)
+                        alert('Lista vazia.');
+                }
+            }            
+        })
+    </script>
+    
+</body>
+</html>
