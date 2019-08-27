@@ -9,16 +9,20 @@
 <body>
 
     <div id="app">
-        <input type="text" name="descricao" id="descricao" v-model="descricao">
-        <button type="button" v-on:click="adicionar">Adicionar</button>
+        <form v-on:submit.prevent="adicionar">
+            <input type="text" name="descricao" id="descricao" v-model="descricao">
+            <button type="button" @click="adicionar">Adicionar</button>
+        </form>
+        
+        
         <br>
         Texto input: {{descricao}}
         <hr>
         <table v-for="(item, index) in lista">
-            <tr>
+            <tr @click="selecionar($event)">
                 <td>{{index}}</td>
                 <td>{{item}}</td>
-                <td><button type="button" v-on:click="remover(index)">X</button></td>
+                <td><button type="button" @click="remover(index)">X</button></td>
             </tr>
         </table>
         
@@ -47,6 +51,14 @@
 
                     if(this.lista.length === 0)
                         alert('Lista vazia.');
+                },
+                selecionar(event){
+                    element = event.target.parentElement;
+                    console.log(element.style.background);
+                    if(element.style.background == 'white' || element.style.background == '')
+                        element.style.background = 'grey';
+                    else
+                        element.style.background = 'white';
                 }
             }            
         })
