@@ -22,7 +22,12 @@
         </tr>
       </thead>
       <tbody id="tbody">
-
+        <tr v-for="(item, index) in lista" :key="index">
+          <td>{{index+1}}</td>
+          <td>{{item.titulo}}</td>
+          <td>{{item.descricao}}</td>
+          <td><button class="btn-danger" @click="removeItem(index)">Remover</button></td>
+        </tr>
       </tbody>
     </table>
   </div>
@@ -49,18 +54,16 @@ export default {
         this.lista.push({titulo: this.titulo, descricao: this.descricao});
         this.titulo = '';
         this.descricao = '';
-        this.atualizaTbody();
       }
       
     },
-    atualizaTbody(){
-      var html = '';
-      this.lista.forEach(item => {
-        html += '<tr><td>'+item.titulo+'</td> <td>'+item.descricao+'</td><td><button class="btn-danger">Excluir</button></td></tr>'
-      });
-      console.log(html);
-      document.getElementById("tbody").innerHTML = html;
-    }    
+    removeItem(index){
+
+      this.lista.splice(index, 1);
+      if(this.lista.length === 0)
+          alert('Lista vazia.');
+                
+    }
   }
 }
 </script>
